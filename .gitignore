@@ -11,6 +11,7 @@
 /spec/example_app/log/*
 /spec/example_app/public/system
 /spec/example_app/public/assets
+.byebug_history
 /tags
 /tmp/*
 /spec/example_app/tmp/*
