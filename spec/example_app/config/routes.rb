@@ -8,6 +8,7 @@ Rails.application.routes.draw do
 
     namespace :blog do
       resources :posts
+      resources :comments
     end
 
     root to: "customers#index"

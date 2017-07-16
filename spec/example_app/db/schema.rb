@@ -10,10 +10,20 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20170507115814) do
+ActiveRecord::Schema.define(version: 20170702025454) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
+
+  create_table "blog_comments", force: :cascade do |t|
+    t.bigint "blog_post_id"
+    t.bigint "customer_id"
+    t.text "body"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["blog_post_id"], name: "index_blog_comments_on_blog_post_id"
+    t.index ["customer_id"], name: "index_blog_comments_on_customer_id"
+  end
 
   create_table "blog_posts", id: :serial, force: :cascade do |t|
     t.string "title"
@@ -72,6 +82,8 @@ ActiveRecord::Schema.define(version: 20170507115814) do
     t.index ["slug"], name: "index_products_on_slug", unique: true
   end
 
+  add_foreign_key "blog_comments", "blog_posts"
+  add_foreign_key "blog_comments", "customers"
   add_foreign_key "line_items", "orders"
   add_foreign_key "line_items", "products"
   add_foreign_key "orders", "customers"
