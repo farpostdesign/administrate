@@ -5,8 +5,8 @@ module Administrate
     class HasOne < Associative
       def nested_form
         @nested_form ||= Administrate::Page::Form.new(
-          resolver.dashboard_class.new,
-          data || resolver.resource_class.new,
+          associated_dashboard,
+          data || associated_class.new,
         )
       end
 
@@ -18,17 +18,9 @@ module Administrate
             attr
           end
         related_dashboard_attributes =
-          Administrate::ResourceResolver.new("admin/#{associated_class_name}").
-            dashboard_class.new.permitted_attributes + [:id]
+          "#{associated_class_name}Dashboard".constantize.new.permitted_attributes + [:id]
 
         { "#{attr}_attributes": related_dashboard_attributes }
-      end
-
-      private
-
-      def resolver
-        @resolver ||=
-          Administrate::ResourceResolver.new("admin/#{associated_class_name}")
       end
     end
   end

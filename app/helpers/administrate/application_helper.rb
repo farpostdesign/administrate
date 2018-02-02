@@ -12,12 +12,16 @@ module Administrate
     end
 
     def display_resource_name(resource_name)
-      class_from_resource(resource_name).
-        model_name.
-        human(
-          count: PLURAL_MANY_COUNT,
-          default: resource_name.to_s.pluralize.titleize,
-        )
+      # class_from_resource(resource_name).
+      #   model_name.
+      #   human(
+      #     count: PLURAL_MANY_COUNT,
+      #     default: resource_name.to_s.pluralize.titleize,
+      #   )
+      # TODO remove this mehtod in favor of direct dashboard.display_resource_name
+      
+      dashboard = "#{resource_name.to_s.classify}Dashboard".constantize.new
+      dashboard.display_resource_name
     end
 
     def sort_order(order)

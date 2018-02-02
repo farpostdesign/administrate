@@ -63,6 +63,11 @@ module Administrate
       end.compact
     end
 
+    def display_resource_name
+      model_class = self.class.name.gsub('Dashboard', '')
+      model_class.constantize.model_name.human(count: :other)
+    end
+
     private
 
     def attribute_not_found_message(attr)
