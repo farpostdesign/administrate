@@ -47,7 +47,7 @@ module Administrate
       if resource.save
         redirect_to(
           [namespace, resource],
-          success: translate_with_resource("create.success"),
+          flash: { success: translate_with_resource("create.success") },
         )
       else
         render :new, locals: {
@@ -60,7 +60,7 @@ module Administrate
       if requested_resource.update(resource_params)
         redirect_to(
           [namespace, requested_resource],
-          success: translate_with_resource("update.success"),
+          flash: { success: translate_with_resource("update.success") },
         )
       else
         render :edit, locals: {
